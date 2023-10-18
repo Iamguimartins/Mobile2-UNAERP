@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "728284856968",
+    "project_id": "trabalhofaculdade-9e598",
+    "storage_bucket": "trabalhofaculdade-9e598.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:728284856968:android:ed007f60e60e40537d553d",
+        "android_client_info": {
+          "package_name": "com.example.trabalho_faculdade"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDd7tuOOP8UpC25J0dqgB4GOaDn-jbv6Nc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
