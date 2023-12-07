@@ -16,20 +16,20 @@ class RecoverPasswordController {
       errors.clear();
 
       if (controllerEmail.text.isEmpty) {
-        errors.add('email');
+        errors.add('e-mail');
       }
 
       if (errors.isEmpty) {
-        final QuerySnapshot query = await FirebaseFirestore.instance.collection('users').where('email', isEqualTo: controllerEmail.text).get();
+        final QuerySnapshot query = await FirebaseFirestore.instance.collection('users').where('e-mail', isEqualTo: controllerEmail.text).get();
 
         if (query.docs.isEmpty) {
-          showToast("Não existe usuário com esse email");
+          showToast("Não existe usuário com esse e-mail");
         } else {
           await FirebaseAuth.instance.sendPasswordResetEmail(email: controllerEmail.text);
-          showToast("Link enviado no email");
+          showToast("Link enviado no e-mail");
         }
       } else {
-        showToast("Preencha o email");
+        showToast("Preencha o e-mail");
       }
     } catch (_) {
     } finally {

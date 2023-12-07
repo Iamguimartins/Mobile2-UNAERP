@@ -97,7 +97,7 @@ class HomePageView extends StatelessWidget {
                 trailing: const Icon(Icons.newspaper),
                 onTap: () async {
                   if (user.isTrainer()) {
-                    await .push(context, MaterialPageRoute(builder: (builder) => const ResultTraining()));
+                    await Navigator.push(context, MaterialPageRoute(builder: (builder) => const ResultTraining()));
                     Navigator.pop(context);
                   } else {
                     showToast("Não liberado para esse perfil de usuário");
@@ -120,7 +120,7 @@ class HomePageView extends StatelessWidget {
       ),
       appBar: AppBar(
         elevation: 0,
-        title: const Text("Trabalho faculdade"),
+        title: const Text("Projeto Mobile"),
         centerTitle: true,
       ),
       body: ListView(
@@ -128,7 +128,7 @@ class HomePageView extends StatelessWidget {
           const SizedBox(height: 60,),
           Padding(
             padding: const EdgeInsets.only(left: 20),
-            child: Text("Bem vindo: ${user.name}", style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700)),
+            child: Text("Bem-vindo: ${user.name}", style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700)),
           ),
           const SizedBox(height: 40,),
           Row(

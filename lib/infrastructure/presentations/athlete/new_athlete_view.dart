@@ -104,7 +104,7 @@ class _NewAthleteViewState extends State<NewAthleteView> {
                             }
                           },
                           readOnly: true,
-                          hint: "Quando você nasceu",
+                          hint: "Quando você nasceu?",
                           text: "Data de nascimento",
                           inputType: TextInputType.number,
                           mask: maskDateFormatter,
@@ -119,7 +119,7 @@ class _NewAthleteViewState extends State<NewAthleteView> {
                       ),
                       TextFieldCustom(
                           text: "Naturalidade",
-                          hint: "Onde você nasceu",
+                          hint: "Onde você nasceu?",
                           inputType: TextInputType.text,
                           isPassword: false,
                           controller: widget.state.controllerPlaceOfBirth,
@@ -131,7 +131,7 @@ class _NewAthleteViewState extends State<NewAthleteView> {
                         height: 30,
                       ),
                       TextFieldCustom(
-                          hint: "Sua nacionalidade",
+                          hint: "Informe sua nacionalidade",
                           text: "Nacionalidade",
                           inputType: TextInputType.text,
                           isPassword: false,
@@ -145,7 +145,7 @@ class _NewAthleteViewState extends State<NewAthleteView> {
                       ),
                       TextFieldCustom(
                           text: "RG",
-                          hint: "Seu RG",
+                          hint: "Informe seu RG",
                           inputType: TextInputType.number,
                           isPassword: false,
                           controller: widget.state.controllerRg,
@@ -158,7 +158,7 @@ class _NewAthleteViewState extends State<NewAthleteView> {
                       ),
                       TextFieldCustom(
                           text: "CPF",
-                          hint: "Seu CPF",
+                          hint: "Informe seu CPF",
                           inputType: TextInputType.number,
                           mask: maskCPFFormatter,
                           isPassword: false,
@@ -246,7 +246,7 @@ class _NewAthleteViewState extends State<NewAthleteView> {
                       ),
                       TextFieldCustom(
                           text: "Clube de Origem",
-                          hint: "Seu clube de origem",
+                          hint: "Qual seu clube de origem?",
                           inputType: TextInputType.text,
                           isPassword: false,
                           controller: widget.state.controllerOriginClub,
@@ -256,7 +256,7 @@ class _NewAthleteViewState extends State<NewAthleteView> {
                       ),
                       TextFieldCustom(
                           text: "Local de trabalho",
-                          hint: "Onde você trabalha",
+                          hint: "Onde você trabalha?",
                           inputType: TextInputType.text,
                           isPassword: false,
                           controller: widget.state.controllerLocalWork,
@@ -266,7 +266,7 @@ class _NewAthleteViewState extends State<NewAthleteView> {
                       ),
                       TextFieldCustom(
                           text: "Convênio médico",
-                          hint: "Qual é seu convênio médico",
+                          hint: "Qual é seu convênio médico?",
                           inputType: TextInputType.text,
                           isPassword: false,
                           controller:
