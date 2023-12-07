@@ -94,7 +94,7 @@ class _AuthViewState extends State<AuthView> {
                           },
                           child: Center(
                             child: Text(
-                              "Esqueci a senha",
+                              "Esqueceu a senha?",
                               style: TextStyle(
                                   color: MyColors.primaryColor,
                                   fontWeight: FontWeight.w500,
@@ -104,7 +104,7 @@ class _AuthViewState extends State<AuthView> {
                         ),
                         const SizedBox(height: 80),
                         ButtonCustom(
-                            title: "Entrar",
+                            title: "Login",
                             onPressed: () async {
                               setState(() {
                                 widget.state.isLoading = true;
