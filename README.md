@@ -1,5 +1,9 @@
-# trabalho_faculdade
+DESAFIO MOBILE 2 - UNAERP 
+INTEGRANTES:
+GUILHERME MARTINS FERREIRA - RA - 831963
+DIEGO DANIEL TORINI - RA - 83256
 
+# trabalho_faculdade
 A new Flutter project.
 
 ## Getting Started
