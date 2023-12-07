@@ -1,7 +1,15 @@
 class TimerModel {
-  String hours;
   String minutes;
-  String secounds;
+  String seconds;
+  String milliseconds;
 
-  TimerModel({required this.hours, required this.secounds, required this.minutes});
+  TimerModel({required this.seconds, required this.minutes, required this.milliseconds});
+
+  Map<String, dynamic> toMap() {
+    return {
+      'minutes': minutes,
+      'seconds': seconds,
+      'milliseconds': milliseconds
+    };
+  }
 }

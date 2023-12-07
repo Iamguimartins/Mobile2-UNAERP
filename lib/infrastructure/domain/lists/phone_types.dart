@@ -1,0 +1,1 @@
+List<String> phoneTypes = ["Residêncial", "Celular", "Local de Trabalho", "Emergência", "Pai", "Mãe", "Outros"];

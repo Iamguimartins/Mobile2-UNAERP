@@ -1,35 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:trabalho_faculdade/infrastructure/domain/entities/chart_section.dart';
-import 'package:trabalho_faculdade/infrastructure/domain/entities/training.dart';
+import 'package:trabalho_faculdade/infrastructure/domain/lists/category_list.dart';
+import 'package:trabalho_faculdade/infrastructure/domain/lists/style_list.dart';
+import 'package:trabalho_faculdade/infrastructure/presentations/analize_training/analize_training_controller.dart';
+import 'package:trabalho_faculdade/infrastructure/presentations/sel_object/selected_user.dart';
 import 'package:trabalho_faculdade/infrastructure/presentations/shared/widgets/button/button_custom.dart';
 import 'package:trabalho_faculdade/infrastructure/presentations/shared/widgets/chart/bar_chart/bar_chart_custom.dart';
-import 'package:trabalho_faculdade/infrastructure/presentations/shared/widgets/chart/line_chart/line_chart_custom.dart';
-import 'package:trabalho_faculdade/infrastructure/presentations/shared/widgets/chart/pie_chart/pie_chart_custom.dart';
 import 'package:trabalho_faculdade/infrastructure/presentations/shared/widgets/input/text_field_custom.dart';
 import 'package:trabalho_faculdade/utils/colors.dart';
 
-class AnalizeTraining extends StatelessWidget {
-  AnalizeTraining({Key? key}) : super(key: key);
+class AnalizeTraining extends StatefulWidget {
+  const AnalizeTraining({Key? key}) : super(key: key);
 
-  final TextEditingController _controllerDateInit = TextEditingController(text: '31/12/2023');
-  final TextEditingController _controllerDateFinish = TextEditingController(text: '31/12/2023');
+  @override
+  State<AnalizeTraining> createState() => _AnalizeTrainingState();
+}
 
-  String selectedStyle = 'Estilo Livre';
-  String selectedEvent = '100m Livre';
-  String selectedSex = 'Masculino';
-  String selectedPeriod = 'Mês Atual';
-
-  final TrainingModel trainingModel = TrainingModel(
-    style: "Natação",
-    number: "1",
-    date: DateTime.now().toString(),
-    athlete: "João",
-    frequencyStart: 80,
-    frequencyEnd: 120,
-    controlResponsible: "Seu zé",
-    timeBy100: List.generate(10, (index) => (index + 1) * 2),
-  );
+class _AnalizeTrainingState extends State<AnalizeTraining> {
+  AnalizeTrainingController state = AnalizeTrainingController();
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +27,7 @@ class AnalizeTraining extends StatelessWidget {
         title: const Text("Análise dos Treinos"),
         centerTitle: true,
       ),
-      body: Padding(
+      body: state.isLoading ? const Center(child: CircularProgressIndicator(),) : Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: ListView(
           children: [
@@ -65,11 +53,13 @@ class AnalizeTraining extends StatelessWidget {
                         if (selectedDate != null) {
                           selectedDate = DateFormat('dd/MM/yyyy')
                               .format(selectedDate);
+                          state.controllerDateInit.text = selectedDate;
                         }
                       },
-                      controller: _controllerDateInit,
+                      controller: state.controllerDateInit,
                       readOnly: true,
-                      hint: "Data Inicial",
+                      text: "Data Inicial",
+                      hint: "",
                       inputType: TextInputType.number,
                       getColorValidator: MyColors.gray),
                 ),
@@ -92,23 +82,46 @@ class AnalizeTraining extends StatelessWidget {
                         if (selectedDate != null) {
                           selectedDate = DateFormat('dd/MM/yyyy')
                               .format(selectedDate);
+                          state.controllerDateFinish.text = selectedDate;
                         }
                       },
-                      controller: _controllerDateFinish,
+                      controller: state.controllerDateFinish,
                       readOnly: true,
-                      hint: "Data Final",
+                      text: "Data Final",
+                      hint: "",
                       inputType: TextInputType.number,
                       getColorValidator: MyColors.gray),
                 ),
               ],
             ),
+            const SizedBox(
+              height: 30,
+            ),
+            TextFieldCustom(
+                controller: state.controllerAthlete,
+                onTap: () async {
+                  var result = await Navigator.push(context, MaterialPageRoute(builder: (builder) => SelectedUser(type: 'V')));
+                  if (result != null) {
+                    state.setAthlete(result);
+                  }
+                },
+                readOnly: true,
+                text: "Atleta (opcional)",
+                hint: "Informe o atleta",
+                inputType: TextInputType.text,
+                getColorValidator: MyColors.gray),
             const SizedBox(height: 20,),
+            Text("Estilo", style: TextStyle(
+                fontSize: 16,
+                color: MyColors.black,
+                fontWeight: FontWeight.w400),),
             DropdownButton<String>(
-              value: selectedStyle,
+              value: state.selectedStyle,
               onChanged: (newValue) {
-                //update
+                state.selectedStyle = newValue ?? "";
+                setState(() {});
               },
-              items: ['Estilo Livre', 'Borboleta', 'Costas', 'Peito']
+              items: styles
                   .map<DropdownMenuItem<String>>((String style) {
                 return DropdownMenuItem<String>(
                   value: style,
@@ -117,12 +130,17 @@ class AnalizeTraining extends StatelessWidget {
               }).toList(),
             ),
             const SizedBox(height: 20,),
+            Text("Categoria", style: TextStyle(
+                fontSize: 16,
+                color: MyColors.black,
+                fontWeight: FontWeight.w400),),
             DropdownButton<String>(
-              value: selectedEvent,
+              value: state.selectedCategory,
               onChanged: (newValue) {
-                //update
+                state.selectedCategory = newValue ?? "";
+                setState(() {});
               },
-              items: ['100m Livre', '200m Livre', '50m Peito', '100m Borboleta']
+              items: categories
                   .map<DropdownMenuItem<String>>((String event) {
                 return DropdownMenuItem<String>(
                   value: event,
@@ -131,12 +149,17 @@ class AnalizeTraining extends StatelessWidget {
               }).toList(),
             ),
             const SizedBox(height: 20,),
+            Text("Sexo", style: TextStyle(
+                fontSize: 16,
+                color: MyColors.black,
+                fontWeight: FontWeight.w400),),
             DropdownButton<String>(
-              value: selectedSex,
+              value: state.selectedSex,
               onChanged: (newValue) {
-                //update
+                state.selectedSex = newValue ?? "";
+                setState(() {});
               },
-              items: ['Masculino', 'Feminino']
+              items: ['Todos', 'Masculino', 'Feminino']
                   .map<DropdownMenuItem<String>>((String sex) {
                 return DropdownMenuItem<String>(
                   value: sex,
@@ -145,37 +168,28 @@ class AnalizeTraining extends StatelessWidget {
               }).toList(),
             ),
             const SizedBox(height: 20,),
-            ButtonCustom(title: "Gerar dados", onPressed: () {}),
+            ButtonCustom(title: "Gerar dados", onPressed: () async {
+              setState(() {
+                state.isLoading = true;
+              });
+              await state.getData();
+              setState(() {
+                state.isLoading = false;
+              });
+            }),
             const SizedBox(height: 40,),
-            BarChartCustom(
-              title: "Gráfico de Barras",
-              sections: [
-                ChartSection(title: "Valor A", value: 100),
-                ChartSection(title: "Valor B", value: 150),
-                ChartSection(title: "Valor C", value: 90),
-                ChartSection(title: "Valor D", value: 170),
-              ],
+            Visibility(
+              visible: state.trainings.isNotEmpty,
+              child: BarChartCustom(
+                title: "Número de treinos por atleta",
+                sections: state.trainingByUser,
+              ),
             ),
-            const SizedBox(height: 20,),
-            PieChartCustom(
-              title: "Gráfico de Pizza",
-              sections: [
-                ChartSection(title: "Valor A", value: 100, color: Colors.blue),
-                ChartSection(title: "Valor B", value: 150, color: Colors.red),
-                ChartSection(title: "Valor C", value: 90, color: Colors.yellow),
-                ChartSection(title: "Valor D", value: 170, color: Colors.green),
-              ],
-            ),
-            const SizedBox(height: 20,),
-            LineChartCustom(
-              colorLine: Colors.blue,
-              title: "Gráfico de Linha",
-              sections: [
-                ChartSection(title: "Valor A", value: 100),
-                ChartSection(title: "Valor B", value: 150),
-                ChartSection(title: "Valor C", value: 90),
-                ChartSection(title: "Valor D", value: 170),
-              ],
+            Visibility(
+              visible: state.trainings.isEmpty,
+              child: const Center(
+                child: Text("Nenhum dado encontrado"),
+              ),
             )
           ],
         ),

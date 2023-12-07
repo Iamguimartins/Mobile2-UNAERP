@@ -1,9 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:trabalho_faculdade/infrastructure/presentations/auth/auth_view.dart';
 import 'package:trabalho_faculdade/utils/colors.dart';
-import 'package:trabalho_faculdade/utils/routes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const TrabalhoFaculdade());
 }
 
@@ -15,8 +18,7 @@ class TrabalhoFaculdade extends StatelessWidget {
     return MaterialApp(
       title: 'Trabalho Faculdade',
       debugShowCheckedModeBanner: false,
-      routes: Routes.routes,
-      initialRoute: Routes.authView,
+      home: AuthView(),
       theme: ThemeData(
         scaffoldBackgroundColor: MyColors.neutralBackground,
       ),

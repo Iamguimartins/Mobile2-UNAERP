@@ -5,6 +5,7 @@ import 'package:trabalho_faculdade/utils/colors.dart';
 class TextFieldCustom extends StatelessWidget {
   TextFieldCustom(
       {Key? key,
+      required this.text,
       required this.hint,
       this.isPassword = false,
       this.controller,
@@ -12,9 +13,11 @@ class TextFieldCustom extends StatelessWidget {
       this.mask,
       this.readOnly = false,
       this.onTap,
+      this.onTapAdd,
       required this.inputType})
       : super(key: key);
 
+  String text;
   String hint;
   bool isPassword;
   TextEditingController? controller;
@@ -23,6 +26,7 @@ class TextFieldCustom extends StatelessWidget {
   TextInputType inputType;
   bool readOnly;
   Function()? onTap;
+  Function()? onTapAdd;
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +34,21 @@ class TextFieldCustom extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(hint, style: TextStyle(
-            fontSize: 16,
-            color: MyColors.black,
-            fontWeight: FontWeight.w400),),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(text, style: TextStyle(
+                fontSize: 16,
+                color: MyColors.black,
+                fontWeight: FontWeight.w400),),
+            Visibility(
+              visible: onTapAdd != null,
+              child: IconButton(
+                  onPressed: onTapAdd,
+                  icon: const Icon(Icons.add, color: Colors.black,)),
+            ),
+          ],
+        ),
         const SizedBox(height: 10,),
         TextField(
           onTap: onTap,
@@ -48,10 +63,7 @@ class TextFieldCustom extends StatelessWidget {
               fontWeight: FontWeight.w400),
           decoration: InputDecoration(
               isDense: true,
-              suffixIcon: isPassword
-                  ? Icon(Icons.visibility,
-                      color: MyColors.gray, size: 20)
-                  : null,
+              hintText: hint,
               border: _border(getColorValidator),
               enabledBorder: _border(getColorValidator),
               focusedBorder: _border(getColorValidator)),
