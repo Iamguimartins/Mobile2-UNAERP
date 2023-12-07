@@ -56,7 +56,7 @@ class _AuthViewState extends State<AuthView> {
                                 height: 100, width: 200)),
                         const SizedBox(height: 50),
                         Text(
-                          "Bem vindo",
+                          "Bem-vindo",
                           style: TextStyle(
                               fontSize: 19,
                               fontWeight: FontWeight.w700,
@@ -64,12 +64,12 @@ class _AuthViewState extends State<AuthView> {
                         ),
                         const SizedBox(height: 40),
                         TextFieldCustom(
-                            hint: "Informe o seu email",
-                            text: "Email",
+                            hint: "Informe o seu e-mail",
+                            text: "E-mail",
                             inputType: TextInputType.emailAddress,
                             controller: widget.state.controllerEmail,
                             getColorValidator:
-                                Util.existStringInList(widget.state.errors, 'email')
+                                Util.existStringInList(widget.state.errors, 'e-mail')
                                     ? MyColors.error
                                     : MyColors.gray),
                         const SizedBox(
