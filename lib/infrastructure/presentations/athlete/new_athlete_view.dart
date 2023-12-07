@@ -45,7 +45,7 @@ class _NewAthleteViewState extends State<NewAthleteView> {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: const Text("Atheta"),
+          title: const Text("Atleta"),
           centerTitle: true,
         ),
         body: widget.state.isLoading

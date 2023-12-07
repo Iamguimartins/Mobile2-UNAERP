@@ -47,8 +47,8 @@ class HomePageView extends StatelessWidget {
               ListTile(
                 title: const Text('Usuários'),
                 trailing: const Icon(Icons.groups),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (builder) => ViewAllUsers(user: user)));
+                onTap: () async {
+                  await Navigator.push(context, MaterialPageRoute(builder: (builder) => ViewAllUsers(user: user)));
                   Navigator.pop(context);
                 },
               ),
@@ -56,9 +56,9 @@ class HomePageView extends StatelessWidget {
               ListTile(
                 title: const Text('Atletas'),
                 trailing: const Icon(Icons.person),
-                onTap: () {
+                onTap: () async {
                   if (!user.isAdm()) {
-                    Navigator.push(context, MaterialPageRoute(builder: (builder) => ViewAllUsers(user: user)));
+                   await Navigator.push(context, MaterialPageRoute(builder: (builder) => ViewAllUsers(user: user)));
                     Navigator.pop(context);
                   } else {
                     showToast("Não liberado para esse perfil de usuário");
@@ -69,9 +69,9 @@ class HomePageView extends StatelessWidget {
               ListTile(
                 title: const Text('Treinos'),
                 trailing: const Icon(Icons.water),
-                onTap: () {
+                onTap: () async {
                   if (!user.isAdm()) {
-                    Navigator.push(context, MaterialPageRoute(builder: (builder) => const ViewAllTraining()));
+                    await Navigator.push(context, MaterialPageRoute(builder: (builder) => const ViewAllTraining()));
                     Navigator.pop(context);
                   } else {
                     showToast("Não liberado para esse perfil de usuário");
@@ -82,9 +82,9 @@ class HomePageView extends StatelessWidget {
               ListTile(
                 title: const Text('Análise de Treinos'),
                 trailing: const Icon(Icons.trending_up),
-                onTap: () {
+                onTap: () async {
                   if (user.isTrainer()) {
-                    Navigator.push(context, MaterialPageRoute(builder: (builder) => const AnalizeTraining()));
+                    await Navigator.push(context, MaterialPageRoute(builder: (builder) => const AnalizeTraining()));
                     Navigator.pop(context);
                   } else {
                     showToast("Não liberado para esse perfil de usuário");
@@ -95,9 +95,9 @@ class HomePageView extends StatelessWidget {
               ListTile(
                 title: const Text('Resultado de Treino'),
                 trailing: const Icon(Icons.newspaper),
-                onTap: () {
+                onTap: () async {
                   if (user.isTrainer()) {
-                    Navigator.push(context, MaterialPageRoute(builder: (builder) => const ResultTraining()));
+                    await .push(context, MaterialPageRoute(builder: (builder) => const ResultTraining()));
                     Navigator.pop(context);
                   } else {
                     showToast("Não liberado para esse perfil de usuário");
